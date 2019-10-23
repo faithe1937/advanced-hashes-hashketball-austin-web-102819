@@ -106,5 +106,34 @@ end
 num_rebounds
 end
 
+def most_points_scored
+  most_points = 0
+  mvp = ''
+  game_hash.each do |home_away, stats|
+    stats[:players].each do |player|
+      points = player[:points]
+      if points > most_points
+        most_points = points
+        mvp = player[:player_name]
+      end
+    end
+  end
+  mvp
+end
+
+ def winning_team
+  total_points = 0
+  win_team = ''
+  game_hash.each do |home_away, stats|
+    team_points = 0
+    team_name = game_hash[home_away][:team_name]
+    stats[:players].each do |player|
+      points = player[:points]
+      team_points += points
+    end
+    win_team, total_points = team_name, team_points if team_points > total_points
+  end
+  return win_team
+end
 
 
